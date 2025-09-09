@@ -1,0 +1,19 @@
+schema-version: v2.1
+dd-service: sbk-experimentation
+team: sbk-gen-experimentation
+tier: p3
+lifecycle: experimental
+description: All code for standardized experimentation functions used by Sportsbook Gen & Pricing Experimentation team
+contacts:
+  - type: slack
+    name: 
+    contact: https://fanduel.slack.com/archives/
+links:
+  - name: sbk-experimentation
+    type: repo
+    url: https://github.com/fanduel/sbk-experimentation
+    provider: github
+tags:
+  - domain:sportsbook
+  - vertical:online-channels
+  - type:library
