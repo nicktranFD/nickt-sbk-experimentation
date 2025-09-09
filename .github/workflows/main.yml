@@ -6,6 +6,9 @@ on:
 jobs:
   update-repo:
     runs-on: ubuntu-latest
+    env:
+      DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+      DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
     steps:
       - name: Install Databricks CLI
         run: |
@@ -13,14 +16,10 @@ jobs:
           databricks -v
 
       - name: Configure Databricks auth (via env)
-        env:
-          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
-          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
         run: |
           databricks auth env
           databricks current-user me   # quick sanity check
 
       - name: Update Databricks Repo to latest main
         run: |
-          # ⚠️ Make sure this path is a Repo path, not /Workspace/Shared
           databricks repos update /Shared/Shared_AI_SBK_Experimentation --branch main
