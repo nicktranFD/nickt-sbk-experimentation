@@ -1,4 +1,4 @@
-name: Sync to Databricks Repo
+name: Sync Databricks Repo
 on:
   push:
     branches: [ main ]
@@ -11,12 +11,16 @@ jobs:
         run: |
           curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
           databricks -v
-      - name: Configure Databricks auth
+
+      - name: Configure Databricks auth (via env)
         env:
           DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
           DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
-        run: databricks auth env
-
-      - name: Pull latest into workspace Repo
         run: |
-          databricks repos update /Repos/Shared/Shared_AI_SBK_Experimentation --branch main
+          databricks auth env
+          databricks current-user me   # quick sanity check
+
+      - name: Update Databricks Repo to latest main
+        run: |
+          # ⚠️ Make sure this path is a Repo path, not /Workspace/Shared
+          databricks repos update /Shared/Shared_AI_SBK_Experimentation --branch main
