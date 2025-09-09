@@ -1,0 +1,5 @@
+command: [
+  "streamlit",
+  "run",
+  "abatarapp/app/main.py"
+]
